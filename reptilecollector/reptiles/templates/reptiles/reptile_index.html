@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>All Reptiles</h2>
+  <ul>
+    {% for reptile in reptiles %}
+      <li>
+        <a href="{% url 'reptile_detail' reptile.id %}">
+          {{ reptile.species }} - Color: {{ reptile.color }}, Size: {{ reptile.size }}
+        </a>
+        <p>{{ reptile.description }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

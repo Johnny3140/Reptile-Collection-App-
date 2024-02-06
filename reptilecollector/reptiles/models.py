@@ -6,7 +6,7 @@ class Reptile(models.Model):
     species = models.CharField(max_length=100)
     color = models.CharField(max_length=50)
     size = models.CharField(max_length=20)
-    description = models.TextField()
+    description = models.TextField(max_length=300)
 
     def __str__(self):
         return self.name
