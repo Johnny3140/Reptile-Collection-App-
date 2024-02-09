@@ -24,6 +24,31 @@
     </div>
   </div>
 
-  <!-- Back to All Reptiles Button -->
-  <a href="{% url 'reptile_index' %}" class="btn btn-secondary">Back to All Reptiles</a>
+ 
+  <!-- Feedings Section -->
+  <div class="card mt-4">
+    <div class="card-body">
+      <h4 class="card-title">Feedings for {{ reptile.species }}</h4>
+      <ul>
+        {% for feeding in feedings %}
+          <li>{{ feeding.date }} - {{ feeding.meal_type }}: {{ feeding.notes }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Add Feeding Form -->
+  <div class="card mt-4">
+    <div class="card-body">
+      <h4 class="card-title">Add Feeding</h4>
+      <form method="post">
+        {% csrf_token %}
+        {{ feeding_form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Feeding</button>
+      </form>
+    </div>
+  </div>
+   <!-- Back to All Reptiles Button -->
+   <a href="{% url 'reptile_index' %}" class="btn btn-secondary">Back to All Reptiles</a>
+  
 {% endblock %}

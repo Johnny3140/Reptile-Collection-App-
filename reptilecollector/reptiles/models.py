@@ -11,3 +11,9 @@ class Reptile(models.Model):
     def __str__(self):
         return self.name
 
+
+class Feeding(models.Model):
+    reptile = models.ForeignKey(Reptile, on_delete=models.CASCADE)
+    date = models.DateField()
+    meal_type = models.CharField(max_length=50)
+    notes = models.TextField()

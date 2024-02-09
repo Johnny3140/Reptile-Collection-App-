@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect 
-from .models import Reptile
-from .forms import ReptileForm
+from .models import Reptile, Feeding
+from .forms import ReptileForm, FeedingForm
 
 def index(request):
     reptiles = Reptile.objects.all()
@@ -11,7 +11,19 @@ def about(request):
 
 def reptile_detail(request, reptile_id):
     reptile = get_object_or_404(Reptile, pk=reptile_id)
-    return render(request, 'reptiles/reptile_detail.html', {'reptile': reptile})
+    feedings = Feeding.objects.filter(reptile=reptile).order_by('-date')
+    
+    if request.method == 'POST':
+        feeding_form = FeedingForm(request.POST)
+        if feeding_form.is_valid():
+            new_feeding = feeding_form.save(commit=False)
+            new_feeding.reptile = reptile
+            new_feeding.save()
+            return redirect('reptile_detail', reptile_id=reptile_id)
+    else:
+        feeding_form = FeedingForm()
+
+    return render(request, 'reptiles/reptile_detail.html', {'reptile': reptile, 'feedings': feedings, 'feeding_form': feeding_form})
 
 def reptile_index(request):
     reptiles = Reptile.objects.all()

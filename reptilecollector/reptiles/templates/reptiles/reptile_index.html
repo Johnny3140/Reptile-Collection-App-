@@ -7,9 +7,10 @@
       <div class="col-md-4 mb-4">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ reptile.species }}</h5>
+            <h5 class="card-title">{{ reptile.name }}</h5>
             <p class="card-text">Color: {{ reptile.color }}</p>
             <p class="card-text">Size: {{ reptile.size }}</p>
+            <p class="card-text">Species: {{ reptile.species }}</p>
             <a href="{% url 'reptile_detail' reptile.id %}" class="btn btn-primary">Details</a>
           </div>
         </div>
