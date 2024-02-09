@@ -1,8 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>{{ reptile.species }} Details</h2>
-  <p>Color: {{ reptile.color }}</p>
-  <p>Size: {{ reptile.size }}</p>
-  <p>Description: {{ reptile.description }}</p>
+  <div class="card my-4">
+    <div class="card-body">
+      <h2 class="card-title">{{ reptile.species }} Details</h2>
+      <p class="card-text"><strong>Color:</strong> {{ reptile.color }}</p>
+      <p class="card-text"><strong>Size:</strong> {{ reptile.size }}</p>
+      <p class="card-text"><strong>Description:</strong> {{ reptile.description }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s6">
+      <!-- Edit Button -->
+      <a href="{% url 'edit_reptile' reptile.id %}" class="btn btn-warning">Edit Reptile</a>
+    </div>
+    <div class="col s6">
+      <!-- Delete Button -->
+      <form method="post" action="{% url 'delete_reptile' reptile.id %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this reptile?')">Delete Reptile</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back to All Reptiles Button -->
+  <a href="{% url 'reptile_index' %}" class="btn btn-secondary">Back to All Reptiles</a>
 {% endblock %}
